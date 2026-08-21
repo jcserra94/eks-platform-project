@@ -43,6 +43,9 @@ resource "helm_release" "cert_manager" {
   namespace        = "cert-manager"
   create_namespace = true
 
+  cleanup_on_fail = true
+  atomic          = true
+
   set = [
     {
       name  = "installCRDs"
@@ -50,6 +53,7 @@ resource "helm_release" "cert_manager" {
     }
   ]
 }
+
 resource "helm_release" "prometheus_stack" {
   name             = "prometheus-stack"
   repository       = "https://prometheus-community.github.io/helm-charts"
@@ -57,10 +61,13 @@ resource "helm_release" "prometheus_stack" {
   namespace        = "monitoring"
   create_namespace = true
 
+  cleanup_on_fail = true
+  atomic          = true
+
   set = [
     {
       name  = "grafana.adminPassword"
-      value = "prom-admin-password" # You can change this to a secure password
+      value = var.grafana_admin_password
     }
   ]
 }

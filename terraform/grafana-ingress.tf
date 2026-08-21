@@ -3,10 +3,10 @@ resource "kubernetes_ingress_v1" "grafana_ingress" {
     name      = "grafana-ingress"
     namespace = "monitoring"
     annotations = {
-      "kubernetes.io/ingress.class"                = "alb"
-      "alb.ingress.kubernetes.io/scheme"           = "internet-facing"
-      "alb.ingress.kubernetes.io/target-type"      = "ip"
-      "alb.ingress.kubernetes.io/listen-ports"     = "[{\"HTTP\": 80}]"
+      "kubernetes.io/ingress.class"            = "alb"
+      "alb.ingress.kubernetes.io/scheme"       = "internet-facing"
+      "alb.ingress.kubernetes.io/target-type"  = "ip"
+      "alb.ingress.kubernetes.io/listen-ports" = "[{\"HTTP\": 80}]"
     }
   }
 

@@ -30,26 +30,26 @@ module "eks" {
     }
   }
 
-eks_managed_node_groups = {
-  system_nodes = {
-    min_size     = 2
-    max_size     = 4
-    desired_size = 2
+  eks_managed_node_groups = {
+    system_nodes = {
+      min_size     = 2
+      max_size     = 4
+      desired_size = 2
 
-    instance_types = ["t3.medium"]
-    capacity_type  = "ON_DEMAND"
-    ami_type       = "AL2023_x86_64_STANDARD"
+      instance_types = ["t3.medium"]
+      capacity_type  = "ON_DEMAND"
+      ami_type       = "AL2023_x86_64_STANDARD"
 
-    # Attach the required policy so worker nodes can handle EBS volume attachments
-    iam_role_additional_policies = {
-      AmazonEBSCSIDriverPolicy = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy"
-    }
+      # Attach the required policy so worker nodes can handle EBS volume attachments
+      iam_role_additional_policies = {
+        AmazonEBSCSIDriverPolicy = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy"
+      }
 
-    labels = {
-      role = "system"
+      labels = {
+        role = "system"
+      }
     }
   }
-}
 
   access_entries = {
     deployer_admin = {
@@ -71,7 +71,7 @@ module "load_balancer_controller_irsa_role" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
   version = "~> 5.39"
 
-  role_name                        = "aws-load-balancer-controller"
+  role_name                              = "aws-load-balancer-controller"
   attach_load_balancer_controller_policy = true
 
   oidc_providers = {
