@@ -36,3 +36,31 @@ resource "helm_release" "aws_load_balancer_controller" {
     }
   ]
 }
+resource "helm_release" "cert_manager" {
+  name             = "cert-manager"
+  repository       = "https://charts.jetstack.io"
+  chart            = "cert-manager"
+  namespace        = "cert-manager"
+  create_namespace = true
+
+  set = [
+    {
+      name  = "installCRDs"
+      value = "true"
+    }
+  ]
+}
+resource "helm_release" "prometheus_stack" {
+  name             = "prometheus-stack"
+  repository       = "https://prometheus-community.github.io/helm-charts"
+  chart            = "kube-prometheus-stack"
+  namespace        = "monitoring"
+  create_namespace = true
+
+  set = [
+    {
+      name  = "grafana.adminPassword"
+      value = "prom-admin-password" # You can change this to a secure password
+    }
+  ]
+}
