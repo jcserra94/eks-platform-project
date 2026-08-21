@@ -7,19 +7,5 @@ metadata:
     kubernetes.io/ingress.class: "alb"
     alb.ingress.kubernetes.io/scheme: "internet-facing"
     alb.ingress.kubernetes.io/target-type: "ip"
-    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS": 443}]'
-    # Uncomment and add your certificate ARN if you have a real ACM certificate ready:
-    # alb.ingress.kubernetes.io/certificate-arn: "arn:aws:acm:us-east-1:YOUR_ACCOUNT_ID:certificate/YOUR_CERT_ID"
-    alb.ingress.kubernetes.io/ssl-redirect: "443"
-spec:
-  rules:
-  - host: "my-eks-app.example.com" # Replace with your domain if desired, or test via the ALB DNS
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: web-service
-            port:
-              number: 80
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}]'
+    # Remove or comment out the HTTPS listener and ssl-redirect for now
